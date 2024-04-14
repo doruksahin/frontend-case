@@ -9,6 +9,14 @@ export function MultiselectDemo() {
     { id: "1", description: "Morty", episodePlayCount: 0 },
     { id: "2", description: "Summer", episodePlayCount: 0 },
     { id: "3", description: "Beth", episodePlayCount: 0 },
+    { id: "4", description: "Rick", episodePlayCount: 0 },
+    { id: "5", description: "Morty", episodePlayCount: 0 },
+    { id: "6", description: "Summer", episodePlayCount: 0 },
+    { id: "7", description: "Beth", episodePlayCount: 0 },
+    { id: "8", description: "Rick", episodePlayCount: 0 },
+    { id: "9", description: "Morty", episodePlayCount: 0 },
+    { id: "10", description: "Summer", episodePlayCount: 0 },
+    { id: "11", description: "Beth", episodePlayCount: 0 },
   ]);
   const [selectedItems, setSelectedItems] = useState<ItemBaseWithDescription[]>(
     [
@@ -66,12 +74,13 @@ export function MultiselectDemo() {
           onSearchedTextChange={onSearchedTextChange}
           onFetchNextPage={onFetchNextPage}
           isLoading={isLoading}
-          renderDropdownItems={({ id }) => {
+          renderDropdownItems={({ id, potentialLastListElementRef }) => {
             const dropdownItem = dropdownItems.find((item) => item.id === id);
             const isSelected = selectedItems.some((item) => item.id === id);
             if (!dropdownItem) return <></>;
             return (
               <RickDropdownItem
+                ref={potentialLastListElementRef}
                 key={id}
                 {...dropdownItem}
                 isSelected={isSelected}

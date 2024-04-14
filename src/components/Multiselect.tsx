@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MultiselectInput } from "./MultiselectInput.tsx";
 import { ItemBase, ItemBaseWithDescription } from "../types.ts";
 import LoadingSpinner from "./LoadingSpinner/LoadingSpinner.tsx";
-import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
+import {
+  MIN_ITEM_TO_INTERSECTION_OBSERVER_WORK,
+  MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK,
+} from "./multiselectConstants.ts";
+import { useIntersectionObserver } from "usehooks-ts";
 
 type MultiselectProps = {
   selectedItems: ItemBaseWithDescription[];
   dropdownItems: ItemBaseWithDescription[];
-  renderDropdownItems: (args: ItemBase) => JSX.Element;
+  renderDropdownItems: (
+    args: ItemBase & {
+      potentialLastListElementRef:
+        | ReturnType<typeof useIntersectionObserver>["ref"]
+        | undefined;
+    },
+  ) => JSX.Element;
   isLoading: boolean;
   onRemoveSelectedItem: (id: string) => void;
   onFetchNextPage: () => void;
@@ -23,7 +33,7 @@ export function Multiselect({
   isLoading,
   onSearchedTextChange,
   searchedText,
-  onFetchNextPage: _onFetchNextPage,
+  onFetchNextPage,
 }: MultiselectProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const onDropdownOpen = () => {
@@ -57,6 +67,7 @@ export function Multiselect({
             role="none"
           >
             <MultiselectDropdownContainer
+              onFetchNextPage={onFetchNextPage}
               renderDropdownItems={renderDropdownItems}
               isLoading={isLoading}
               dropdownItems={dropdownItems}
@@ -72,10 +83,20 @@ function MultiselectDropdownContainer({
   isLoading,
   dropdownItems,
   renderDropdownItems,
+  onFetchNextPage,
 }: Pick<
   MultiselectProps,
-  "isLoading" | "dropdownItems" | "renderDropdownItems"
+  "isLoading" | "dropdownItems" | "renderDropdownItems" | "onFetchNextPage"
 >) {
+  const { isIntersecting, ref: lastListElementRef } = useIntersectionObserver({
+    threshold: 0.5,
+  });
+
+  useEffect(() => {
+    if (!isIntersecting) return;
+    onFetchNextPage();
+  }, [isIntersecting]);
+
   if (isLoading) {
     return (
       <div className={"flex justify-center items-center h-16"}>
@@ -91,9 +112,14 @@ function MultiselectDropdownContainer({
       </div>
     );
   } else {
-    return dropdownItems.map((item) =>
+    return dropdownItems.map((item, index) =>
       renderDropdownItems({
         id: item.id,
+        potentialLastListElementRef:
+          index === dropdownItems.length - 1 &&
+          dropdownItems.length > MIN_ITEM_TO_INTERSECTION_OBSERVER_WORK
+            ? lastListElementRef
+            : undefined,
       }),
     );
   }
