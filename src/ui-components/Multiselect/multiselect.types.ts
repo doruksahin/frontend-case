@@ -16,7 +16,7 @@ export type MultiselectDropdownItemProps = {
   searchedText: string;
 } & RickCharacterProperties;
 
-export type MultiselectProps = {
+export type MultiselectProps = MultiselectOptionalProps & {
   selectedItems: ItemBaseWithDescription[];
   dropdownItems: ItemBaseWithDescription[];
   renderDropdownItems: (
@@ -31,4 +31,8 @@ export type MultiselectProps = {
   onFetchNextPage: () => void;
   searchedText: string;
   onSearchedTextChange: (searchedText: string) => void;
+};
+
+type MultiselectOptionalProps = {
+  allowInfiniteScroll?: boolean;
 };

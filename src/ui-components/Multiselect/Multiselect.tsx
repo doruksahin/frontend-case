@@ -14,6 +14,7 @@ export function Multiselect({
   onSearchedTextChange,
   searchedText,
   onFetchNextPage,
+  allowInfiniteScroll = true,
 }: MultiselectProps) {
   const multiselectComponentRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +51,7 @@ export function Multiselect({
             role="none"
           >
             <MultiselectDropdownContainer
+              allowInfiniteScroll={allowInfiniteScroll}
               onFetchNextPage={onFetchNextPage}
               renderDropdownItems={renderDropdownItems}
               isLoading={isLoading}

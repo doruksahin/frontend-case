@@ -10,18 +10,23 @@ export function MultiselectDropdownContainer({
   dropdownItems,
   renderDropdownItems,
   onFetchNextPage,
+  allowInfiniteScroll,
 }: Pick<
   MultiselectProps,
-  "isLoading" | "dropdownItems" | "renderDropdownItems" | "onFetchNextPage"
+  | "isLoading"
+  | "dropdownItems"
+  | "renderDropdownItems"
+  | "onFetchNextPage"
+  | "allowInfiniteScroll"
 >) {
   const { isIntersecting, ref: lastListElementRef } = useIntersectionObserver({
     threshold: 0.5,
   });
 
   useEffect(() => {
-    if (!isIntersecting) return;
+    if (!isIntersecting || !allowInfiniteScroll) return;
     onFetchNextPage();
-  }, [isIntersecting]);
+  }, [isIntersecting, allowInfiniteScroll]);
 
   if (isLoading) {
     return (
