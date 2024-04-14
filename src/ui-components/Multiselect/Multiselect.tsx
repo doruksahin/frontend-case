@@ -43,7 +43,7 @@ export function Multiselect({
       />
       {isDropdownOpen && (
         <div
-          className="absolute right-0 mt-2 w-full rounded-lg shadow-lg border border-[#94a3b8] text-sm"
+          className="absolute right-0 mt-2 w-full rounded-lg shadow-lg outline outline-1 outline-[#94a3b8] text-sm"
           role="menu"
         >
           <div

@@ -33,7 +33,11 @@ export const RickDropdownItem = forwardRef<
     };
 
     return (
-      <div className={"flex gap-2 items-center p-2"} ref={ref}>
+      <div
+        className={"flex gap-2 items-center p-2 bg-[#f8fafc] cursor-pointer"}
+        onClick={_onSelect}
+        ref={ref}
+      >
         <input
           type={"checkbox"}
           checked={isSelected}

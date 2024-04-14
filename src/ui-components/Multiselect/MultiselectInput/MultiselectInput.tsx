@@ -81,7 +81,7 @@ export function MultiselectInput({
               onOpenDropdown();
               onSearchedTextChange(e.target.value);
             }}
-            className={`outline-none w-1/4 bg-red-300`}
+            className={`outline-none w-1/4 py-1`}
             onFocus={onOpenDropdown}
             onKeyDown={onKeyNavigation}
           />
@@ -90,7 +90,7 @@ export function MultiselectInput({
         <div
           onClick={onClickDropdown}
           className={
-            "min-w-5 w-5 flex flex-col cursor-pointer items-center mr-1 justify-center"
+            "min-w-4 w-4 flex flex-col cursor-pointer items-center mr-2 justify-center"
           }
           tabIndex={0}
           onKeyDown={(e) => {
