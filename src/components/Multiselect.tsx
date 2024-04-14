@@ -52,20 +52,45 @@ export function Multiselect({
             className="flex flex-col divide-y divide-[#8597af] max-h-80 overflow-y-auto"
             role="none"
           >
-            {isLoading ? (
-              <div className={"flex justify-center items-center h-16"}>
-                <LoadingSpinner />
-              </div>
-            ) : (
-              dropdownItems.map((item) =>
-                renderDropdownItems({
-                  id: item.id,
-                }),
-              )
-            )}
+            <MultiselectDropdownContainer
+              renderDropdownItems={renderDropdownItems}
+              isLoading={isLoading}
+              dropdownItems={dropdownItems}
+            />
           </div>
         </div>
       )}
     </div>
   );
+}
+
+function MultiselectDropdownContainer({
+  isLoading,
+  dropdownItems,
+  renderDropdownItems,
+}: Pick<
+  MultiselectProps,
+  "isLoading" | "dropdownItems" | "renderDropdownItems"
+>) {
+  if (isLoading) {
+    return (
+      <div className={"flex justify-center items-center h-16"}>
+        <LoadingSpinner />
+      </div>
+    );
+  } else if (dropdownItems.length === 0) {
+    return (
+      <div className={"flex justify-center items-center h-16"}>
+        <span className={"text-[#112a44] text-sm font-medium"}>
+          No results found
+        </span>
+      </div>
+    );
+  } else {
+    return dropdownItems.map((item) =>
+      renderDropdownItems({
+        id: item.id,
+      }),
+    );
+  }
 }
