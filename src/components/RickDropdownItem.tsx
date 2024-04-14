@@ -46,6 +46,7 @@ export const RickDropdownItem = forwardRef<
           ref={checkboxRef}
           className={"cursor-pointer"}
           type={"checkbox"}
+          onChange={() => {}}
           checked={isSelected}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
