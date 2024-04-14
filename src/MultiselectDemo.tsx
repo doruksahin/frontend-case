@@ -72,6 +72,7 @@ export function MultiselectDemo() {
             if (!dropdownItem) return <></>;
             return (
               <RickDropdownItem
+                key={id}
                 {...dropdownItem}
                 isSelected={isSelected}
                 onSelect={onSelect}

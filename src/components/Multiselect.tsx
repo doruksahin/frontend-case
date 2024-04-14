@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MultiselectInput } from "./MultiselectInput.tsx";
 import { ItemBase, ItemBaseWithDescription } from "../types.ts";
 import LoadingSpinner from "./LoadingSpinner/LoadingSpinner.tsx";
+import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
 
 type MultiselectProps = {
   selectedItems: ItemBaseWithDescription[];
@@ -33,7 +34,10 @@ export function Multiselect({
   };
 
   return (
-    <div className="relative w-full">
+    <div
+      className="relative w-full"
+      id={MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK}
+    >
       <MultiselectInput
         onSearchedTextChange={onSearchedTextChange}
         searchedText={searchedText}
