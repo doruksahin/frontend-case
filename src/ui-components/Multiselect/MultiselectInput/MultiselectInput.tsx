@@ -61,7 +61,7 @@ export function MultiselectInput({
     <div
       ref={inputContainerRef}
       onClick={onFocusInputContainer}
-      className={`cursor-text rounded-xl shadow-md px-1 py-2 text-[#112a44] text-sm font-medium ${isFocused ? "outline-blue-600 outline-2 outline" : "outline outline-1 outline-[#94a3b8]"}`}
+      className={`cursor-text rounded-xl shadow-md px-1 py-1 text-[#112a44] text-sm font-medium ${isFocused ? "outline-blue-600 outline-2 outline" : "outline outline-1 outline-[#94a3b8]"}`}
     >
       <div className={"flex justify-between"}>
         <div className={"flex flex-wrap gap-2"}>
@@ -81,7 +81,7 @@ export function MultiselectInput({
               onOpenDropdown();
               onSearchedTextChange(e.target.value);
             }}
-            className={`outline-none`}
+            className={`outline-none w-1/4 bg-red-300`}
             onFocus={onOpenDropdown}
             onKeyDown={onKeyNavigation}
           />
@@ -90,7 +90,7 @@ export function MultiselectInput({
         <div
           onClick={onClickDropdown}
           className={
-            "min-w-5 w-5 flex flex-col cursor-pointer items-center  justify-center"
+            "min-w-5 w-5 flex flex-col cursor-pointer items-center mr-1 justify-center"
           }
           tabIndex={0}
           onKeyDown={(e) => {

@@ -19,7 +19,7 @@ export function MultiselectInputSelectedItem({
     <div
       className={"flex gap-1 items-center bg-[#e2e8f0] px-2 py-1 rounded-lg"}
     >
-      <span>{description}</span>
+      <span className={"text-[#334155]"}>{description}</span>
       <div
         onKeyDown={(e) => {
           if (e.key === "Enter") {

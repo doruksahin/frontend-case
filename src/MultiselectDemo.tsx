@@ -114,6 +114,7 @@ export function MultiselectDemo() {
                 isSelected={isSelected}
                 onSelect={onSelect}
                 onDeselect={onUnselect}
+                searchedText={searchedText}
               />
             );
           }}
