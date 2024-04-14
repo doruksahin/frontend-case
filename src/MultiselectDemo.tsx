@@ -5,6 +5,7 @@ import { ItemBaseWithDescription } from "./ui-components/Multiselect/multiselect
 import { rickCharactersToDropdownRickCharacters } from "./business/rick.ts";
 import axios, { AxiosError, CanceledError, CancelTokenSource } from "axios";
 import { RickCharacterProperties } from "./business/rick.interface.ts";
+import { toast } from "react-toastify";
 
 export function MultiselectDemo() {
   const [dropdownItems, setDropdownItems] = useState<RickCharacterProperties[]>(
@@ -43,8 +44,21 @@ export function MultiselectDemo() {
       });
     if (error instanceof CanceledError) {
       setIsLoading(false);
+      toast(error.message, {
+        type: "error",
+      });
       return;
     } else if (error instanceof AxiosError) {
+      const requestError = error.request;
+      if (requestError instanceof XMLHttpRequest) {
+        toast(requestError.response, {
+          type: "error",
+        });
+      } else {
+        toast("Unknown error", {
+          type: "error",
+        });
+      }
       setDropdownItems([]);
       setCurrentPage(1);
       setIsLoading(false);
@@ -73,7 +87,16 @@ export function MultiselectDemo() {
       //setIsLoadingMore(false);
       return;
     } else if (error instanceof AxiosError) {
-      // setIsFinalPage(true);
+      const requestError = error.request;
+      if (requestError instanceof XMLHttpRequest) {
+        toast(requestError.response, {
+          type: "error",
+        });
+      } else {
+        toast("Unknown error", {
+          type: "error",
+        });
+      }
       return;
     }
     setDropdownItems((prev) => [...prev, ...dropdownCharacters]);
