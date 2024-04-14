@@ -1,10 +1,12 @@
-import { ComponentProps, useEffect, useRef, useState } from "react";
-import ArrowUpIcon from "../../assets/arrow-up.svg";
-import ArrowDownIcon from "../../assets/arrow-down.svg";
+import { ComponentProps, useState } from "react";
+import ArrowUpIcon from "../../../assets/arrow-up.svg";
+import ArrowDownIcon from "../../../assets/arrow-down.svg";
 import { MultiselectInputSelectedItem } from "./MultiselectInputSelectedItem.tsx";
-import { Multiselect } from "./Multiselect.tsx";
-import useFocusHandler from "../../hooks/useFocusHandler.tsx";
-import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
+import { Multiselect } from "../Multiselect.tsx";
+import useFocusHandler from "../../../hooks/useFocusHandler.tsx";
+import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "../multiselectConstants.ts";
+import { useMultiselectInputFocus } from "./useMultiselectInputFocus.tsx";
+import { useInputContainerFocus } from "./useInputContainerFocus.tsx";
 
 export function MultiselectInput({
   isDropdownOpen,
@@ -111,58 +113,4 @@ export function MultiselectInput({
       </div>
     </div>
   );
-}
-
-export function useInputContainerFocus({
-  onFocusLost,
-}: {
-  onFocusLost: () => void;
-}) {
-  const inputContainerRef = useRef<HTMLDivElement>(null);
-  const onBlur = () => {
-    onFocusLost();
-  };
-
-  return { inputContainerRef, onBlur };
-}
-
-export function useMultiselectInputFocus({
-  onInputFocus,
-  onInputFocusLost,
-  onOpenDropdown,
-}: {
-  onInputFocusLost: () => void;
-  onInputFocus: () => void;
-  onOpenDropdown: () => void;
-}) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const onFocusInputContainer = () => {
-    onInputFocus();
-    if (!inputRef.current) return;
-    inputRef.current.focus();
-    onOpenDropdown();
-  };
-
-  useEffect(() => {
-    const onFocusInput = () => {
-      onInputFocus();
-      onOpenDropdown();
-    };
-
-    const onFocusInputLost = () => {
-      onInputFocusLost();
-    };
-
-    const inputElement = inputRef.current;
-    if (!inputElement) return;
-    inputElement.addEventListener("focusin", onFocusInput);
-    inputElement.addEventListener("focusout", onFocusInputLost);
-    return () => {
-      inputElement.removeEventListener("focusin", onFocusInput);
-      inputElement.removeEventListener("focusout", onFocusInputLost);
-    };
-  }, []);
-
-  return { inputRef, onFocusInputContainer };
 }

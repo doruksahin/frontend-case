@@ -1,5 +1,5 @@
 import { RefObject, useRef, useState } from "react";
-import { MultiselectInput } from "./MultiselectInput.tsx";
+import { MultiselectInput } from "./MultiselectInput/MultiselectInput.tsx";
 import { MultiselectProps } from "./multiselect.types.ts";
 import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
 import { MultiselectDropdownContainer } from "./MultiselectDropdownContainer.tsx";
