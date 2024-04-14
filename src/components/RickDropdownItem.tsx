@@ -1,7 +1,7 @@
 import { MultiselectDropdownItemProps } from "../ui-components/Multiselect/multiselect.types.ts";
 import useFocusHandler from "../hooks/useFocusHandler.tsx";
 import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "../ui-components/Multiselect/multiselectConstants.ts";
-import { forwardRef } from "react";
+import { forwardRef, useRef } from "react";
 import { HighlightedText } from "../ui-components/HighlightedText/HighlightedText.tsx";
 
 export const RickDropdownItem = forwardRef<
@@ -24,6 +24,7 @@ export const RickDropdownItem = forwardRef<
     const { onKeyNavigation } = useFocusHandler(
       MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK,
     );
+    const checkboxRef = useRef<HTMLInputElement>(null);
     const _onSelect = () => {
       if (isSelected) {
         onDeselect(id);
@@ -35,13 +36,17 @@ export const RickDropdownItem = forwardRef<
     return (
       <div
         className={"flex gap-2 items-center p-2 bg-[#f8fafc] cursor-pointer"}
-        onClick={_onSelect}
+        onClick={() => {
+          _onSelect();
+          checkboxRef.current?.focus();
+        }}
         ref={ref}
       >
         <input
+          ref={checkboxRef}
+          className={"cursor-pointer"}
           type={"checkbox"}
           checked={isSelected}
-          onChange={_onSelect}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               _onSelect();
