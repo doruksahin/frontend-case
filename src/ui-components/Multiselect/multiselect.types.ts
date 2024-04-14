@@ -19,7 +19,7 @@ export type MultiselectDropdownItemProps = {
 export type MultiselectProps = MultiselectOptionalProps & {
   selectedItems: ItemBaseWithDescription[];
   dropdownItems: ItemBaseWithDescription[];
-  renderDropdownItems: (
+  renderDropdownItems?: (
     args: ItemBase & {
       potentialLastListElementRef:
         | ReturnType<typeof useIntersectionObserver>["ref"]

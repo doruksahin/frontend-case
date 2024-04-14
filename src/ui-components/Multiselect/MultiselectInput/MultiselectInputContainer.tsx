@@ -8,7 +8,7 @@ import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "../multiselectConstants
 import { useMultiselectInputFocus } from "./useMultiselectInputFocus.tsx";
 import { useInputContainerFocus } from "./useInputContainerFocus.tsx";
 
-export function MultiselectInput({
+export function MultiselectInputContainer({
   isDropdownOpen,
   onOpenDropdown,
   onCloseDropdown,
@@ -59,6 +59,7 @@ export function MultiselectInput({
 
   return (
     <div
+      data-testid={"multiselect-input-container"}
       ref={inputContainerRef}
       onClick={onFocusInputContainer}
       className={`cursor-text rounded-xl shadow-md px-1 py-1 text-[#112a44] text-sm font-medium ${isFocused ? "outline-blue-600 outline-2 outline" : "outline outline-1 outline-[#94a3b8]"}`}
@@ -74,6 +75,7 @@ export function MultiselectInput({
           ))}
 
           <input
+            data-testid={"multiselect-input"}
             onBlur={onBlur}
             ref={inputRef}
             value={searchedText}
@@ -88,6 +90,7 @@ export function MultiselectInput({
         </div>
 
         <div
+          data-testid={"multiselect-dropdown-icon"}
           onClick={onClickDropdown}
           className={
             "min-w-4 w-4 flex flex-col cursor-pointer items-center mr-2 justify-center"

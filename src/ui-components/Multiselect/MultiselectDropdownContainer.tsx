@@ -45,15 +45,17 @@ export function MultiselectDropdownContainer({
   } else {
     return (
       <>
-        {dropdownItems.map((item, index) =>
-          renderDropdownItems({
-            id: item.id,
-            potentialLastListElementRef:
-              index === dropdownItems.length - 1 &&
-              dropdownItems.length > MIN_ITEM_TO_INTERSECTION_OBSERVER_WORK
-                ? lastListElementRef
-                : undefined,
-          }),
+        {dropdownItems.map(
+          (item, index) =>
+            renderDropdownItems &&
+            renderDropdownItems({
+              id: item.id,
+              potentialLastListElementRef:
+                index === dropdownItems.length - 1 &&
+                dropdownItems.length > MIN_ITEM_TO_INTERSECTION_OBSERVER_WORK
+                  ? lastListElementRef
+                  : undefined,
+            }),
         )}
       </>
     );
