@@ -11,9 +11,14 @@ export function MultiselectDemo() {
   };
 
   return (
-    <Multiselect
-      selectedItems={selectedItems}
-      onRemoveSelectedItem={onRemoveSelectedItem}
-    />
+    <div className={"flex justify-center mt-5"}>
+      <div className={"flex gap-4 items-center flex-col"}>
+        <span className={"text-xl font-bold"}>Rick-o-picker</span>
+        <Multiselect
+          selectedItems={selectedItems}
+          onRemoveSelectedItem={onRemoveSelectedItem}
+        />
+      </div>
+    </div>
   );
 }
