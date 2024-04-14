@@ -44,7 +44,7 @@ export function MultiselectDemo() {
       });
     if (error instanceof CanceledError) {
       setIsLoading(false);
-      toast(error.message, {
+      toast(`${error.message} (due to fast typing, prev response cancelled)`, {
         type: "error",
       });
       return;
