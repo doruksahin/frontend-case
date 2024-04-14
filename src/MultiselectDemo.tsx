@@ -1,59 +1,84 @@
 import { Multiselect } from "./ui-components/Multiselect/Multiselect.tsx";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RickDropdownItem } from "./components/RickDropdownItem.tsx";
-import {
-  ItemBaseWithDescription,
-  RickItem,
-} from "./ui-components/Multiselect/types.ts";
+import { ItemBaseWithDescription } from "./ui-components/Multiselect/multiselect.types.ts";
+import { rickCharactersToDropdownRickCharacters } from "./business/rick.ts";
+import axios, { AxiosError, CanceledError, CancelTokenSource } from "axios";
+import { RickCharacterProperties } from "./business/rick.interface.ts";
 
 export function MultiselectDemo() {
-  const [dropdownItems, setDropdownItems] = useState<RickItem[]>([
-    { id: "0", description: "Rick", episodePlayCount: 0 },
-    { id: "1", description: "Morty", episodePlayCount: 0 },
-    { id: "2", description: "Summer", episodePlayCount: 0 },
-    { id: "3", description: "Beth", episodePlayCount: 0 },
-    { id: "4", description: "Rick", episodePlayCount: 0 },
-    { id: "5", description: "Morty", episodePlayCount: 0 },
-    { id: "6", description: "Summer", episodePlayCount: 0 },
-    { id: "7", description: "Beth", episodePlayCount: 0 },
-    { id: "8", description: "Rick", episodePlayCount: 0 },
-    { id: "9", description: "Morty", episodePlayCount: 0 },
-    { id: "10", description: "Summer", episodePlayCount: 0 },
-    { id: "11", description: "Beth", episodePlayCount: 0 },
-  ]);
-  const [selectedItems, setSelectedItems] = useState<ItemBaseWithDescription[]>(
-    [
-      { id: "0", description: "Rick" },
-      { id: "1", description: "Morty" },
-    ],
+  const [dropdownItems, setDropdownItems] = useState<RickCharacterProperties[]>(
+    [],
   );
+  const [selectedItems, setSelectedItems] = useState<ItemBaseWithDescription[]>(
+    [],
+  );
+  const cancelTokenSource = useRef<CancelTokenSource | null>(null);
 
   const [searchedText, setSearchedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    onSearchedTextChange("");
+  }, []);
 
   const onRemoveSelectedItem = (id: string) => {
     setSelectedItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const onSearchedTextChange = (searchedText: string) => {
+  async function onSearchedTextChange(searchedText: string) {
+    setIsLoading(true);
     setSearchedText(searchedText);
-    setIsLoading(true);
-    setTimeout(() => {
-      setDropdownItems(
-        dropdownItems.filter((item) =>
-          item.description.toLowerCase().includes(searchedText.toLowerCase()),
-        ),
-      );
-      setIsLoading(false);
-    }, 1000);
-  };
+    if (cancelTokenSource.current) {
+      cancelTokenSource.current.cancel();
+    }
+    cancelTokenSource.current = axios.CancelToken.source();
 
-  const onFetchNextPage = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setDropdownItems((prev) => [...prev]);
+    const { dropdownCharacters, error } =
+      await rickCharactersToDropdownRickCharacters({
+        searchedText,
+        page: currentPage,
+        cancelTokenSource: cancelTokenSource.current,
+      });
+    if (error instanceof CanceledError) {
       setIsLoading(false);
-    }, 1000);
+      return;
+    } else if (error instanceof AxiosError) {
+      setDropdownItems([]);
+      setCurrentPage(1);
+      setIsLoading(false);
+      return;
+    }
+    setDropdownItems(dropdownCharacters);
+    setCurrentPage(1);
+    setIsLoading(false);
+  }
+
+  const onFetchNextPage = async () => {
+    //setIsLoadingMore(true);
+    setSearchedText(searchedText);
+    if (cancelTokenSource.current) {
+      cancelTokenSource.current.cancel();
+    }
+    cancelTokenSource.current = axios.CancelToken.source();
+
+    const { dropdownCharacters, error } =
+      await rickCharactersToDropdownRickCharacters({
+        searchedText,
+        page: currentPage + 1,
+        cancelTokenSource: cancelTokenSource.current,
+      });
+    if (error instanceof CanceledError) {
+      //setIsLoadingMore(false);
+      return;
+    } else if (error instanceof AxiosError) {
+      // setIsFinalPage(true);
+      return;
+    }
+    setDropdownItems((prev) => [...prev, ...dropdownCharacters]);
+    setCurrentPage((prev) => prev + 1);
+    // setIsLoadingMore(false);
   };
 
   const onSelect = (selectedItemId: string) => {

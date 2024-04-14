@@ -1,4 +1,4 @@
-import { MultiselectDropdownItemProps } from "../ui-components/Multiselect/types.ts";
+import { MultiselectDropdownItemProps } from "../ui-components/Multiselect/multiselect.types.ts";
 import useFocusHandler from "../hooks/useFocusHandler.tsx";
 import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "../ui-components/Multiselect/multiselectConstants.ts";
 import { forwardRef } from "react";
@@ -15,6 +15,7 @@ export const RickDropdownItem = forwardRef<
       onSelect,
       onDeselect,
       episodePlayCount,
+      image,
     }: MultiselectDropdownItemProps,
     ref,
   ) => {
@@ -43,7 +44,12 @@ export const RickDropdownItem = forwardRef<
             }
           }}
         />
-        <img className={"rounded-md"} width={"30"} alt={"rick image"} />
+        <img
+          src={image}
+          className={"rounded-md"}
+          width={"30"}
+          alt={"rick image"}
+        />
         <div className={"flex flex-col"}>
           <span>{description}</span>
           <span

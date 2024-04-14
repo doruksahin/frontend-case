@@ -45,7 +45,9 @@ export function MultiselectInput({
     setIsFocused(true);
   }
 
-  const onClickDropdown = () => {
+  const onClickDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!e) return;
+    e.stopPropagation();
     if (isDropdownOpen) {
       onCloseDropdown();
     } else {
@@ -77,7 +79,7 @@ export function MultiselectInput({
               onOpenDropdown();
               onSearchedTextChange(e.target.value);
             }}
-            className={`py-1 outline-none`}
+            className={`outline-none`}
             onFocus={onOpenDropdown}
             onKeyDown={onKeyNavigation}
           />
