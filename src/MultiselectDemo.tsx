@@ -1,7 +1,10 @@
-import { Multiselect } from "./components/Multiselect.tsx";
+import { Multiselect } from "./ui-components/Multiselect/Multiselect.tsx";
 import { useState } from "react";
 import { RickDropdownItem } from "./components/RickDropdownItem.tsx";
-import { ItemBaseWithDescription, RickItem } from "./types.ts";
+import {
+  ItemBaseWithDescription,
+  RickItem,
+} from "./ui-components/Multiselect/types.ts";
 
 export function MultiselectDemo() {
   const [dropdownItems, setDropdownItems] = useState<RickItem[]>([

@@ -1,6 +1,6 @@
-import { MultiselectDropdownItemProps } from "../types.ts";
+import { MultiselectDropdownItemProps } from "../ui-components/Multiselect/types.ts";
 import useFocusHandler from "../hooks/useFocusHandler.tsx";
-import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
+import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "../ui-components/Multiselect/multiselectConstants.ts";
 import { forwardRef } from "react";
 
 export const RickDropdownItem = forwardRef<

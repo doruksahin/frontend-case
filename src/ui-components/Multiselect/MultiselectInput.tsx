@@ -1,9 +1,9 @@
 import { ComponentProps, useEffect, useRef, useState } from "react";
-import ArrowUpIcon from "../assets/arrow-up.svg";
-import ArrowDownIcon from "../assets/arrow-down.svg";
+import ArrowUpIcon from "../../assets/arrow-up.svg";
+import ArrowDownIcon from "../../assets/arrow-down.svg";
 import { MultiselectInputSelectedItem } from "./MultiselectInputSelectedItem.tsx";
 import { Multiselect } from "./Multiselect.tsx";
-import useFocusHandler from "../hooks/useFocusHandler.tsx";
+import useFocusHandler from "../../hooks/useFocusHandler.tsx";
 import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
 
 export function MultiselectInput({

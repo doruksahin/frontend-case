@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { MultiselectInput } from "./MultiselectInput.tsx";
-import { ItemBase, ItemBaseWithDescription } from "../types.ts";
-import LoadingSpinner from "./LoadingSpinner/LoadingSpinner.tsx";
+import { ItemBase, ItemBaseWithDescription } from "./types.ts";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.tsx";
 import {
   MIN_ITEM_TO_INTERSECTION_OBSERVER_WORK,
   MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK,

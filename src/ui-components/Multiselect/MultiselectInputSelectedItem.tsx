@@ -1,7 +1,7 @@
-import RemoveIcon from "../assets/close.svg";
+import RemoveIcon from "../../assets/close.svg";
 import { ComponentProps } from "react";
 import { Multiselect } from "./Multiselect.tsx";
-import useFocusHandler from "../hooks/useFocusHandler.tsx";
+import useFocusHandler from "../../hooks/useFocusHandler.tsx";
 import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
 
 export type MultiselectInputSelectedItemProps = {
