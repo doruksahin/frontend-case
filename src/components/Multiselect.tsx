@@ -1,13 +1,23 @@
 import { PropsWithChildren, useState } from "react";
 import { MultiselectInput } from "./MultiselectInput.tsx";
+import { MultiselectInputSelectedItemProps } from "./MultiselectInputSelectedItem.tsx";
+
+type MultiselectProps = {
+  selectedItems: MultiselectInputSelectedItemProps[];
+  onRemoveSelectedItem: (id: string) => void;
+};
 
 export function Multiselect({
   children,
-}: PropsWithChildren<Record<never, never>>) {
+  selectedItems,
+  onRemoveSelectedItem,
+}: PropsWithChildren<MultiselectProps>) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
     <div className="relative inline-block w-80 ">
       <MultiselectInput
+        onRemoveSelectedItem={onRemoveSelectedItem}
+        selectedItems={selectedItems}
         setIsDropdownOpen={setIsDropdownOpen}
         isDropdownOpen={isDropdownOpen}
       />
