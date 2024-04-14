@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { MultiselectInput } from "./MultiselectInput.tsx";
 import { MultiselectProps } from "./multiselect.types.ts";
 import { MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK } from "./multiselectConstants.ts";
 import { MultiselectDropdownContainer } from "./MultiselectDropdownContainer.tsx";
+import { useOnClickOutside } from "usehooks-ts";
 
 export function Multiselect({
   selectedItems,
@@ -14,6 +15,8 @@ export function Multiselect({
   searchedText,
   onFetchNextPage,
 }: MultiselectProps) {
+  const multiselectComponentRef = useRef<HTMLDivElement>(null);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const onDropdownOpen = () => {
     setIsDropdownOpen(true);
@@ -24,6 +27,7 @@ export function Multiselect({
 
   return (
     <div
+      ref={multiselectComponentRef}
       className="relative w-full"
       id={MULTISELECT_COMPONENT_ID_FOR_FOCUS_LOCK}
     >
@@ -54,6 +58,25 @@ export function Multiselect({
           </div>
         </div>
       )}
+      <MultiselectOutsideClickHandler
+        multiselectComponentRef={multiselectComponentRef}
+        onCloseDropdown={onDropdownClose}
+      />
     </div>
   );
+}
+
+function MultiselectOutsideClickHandler({
+  multiselectComponentRef,
+  onCloseDropdown,
+}: {
+  multiselectComponentRef: RefObject<HTMLDivElement>;
+  onCloseDropdown: () => void;
+}) {
+  const onClickOutside = () => {
+    onCloseDropdown();
+  };
+
+  useOnClickOutside(multiselectComponentRef, onClickOutside);
+  return <></>;
 }
