@@ -4,6 +4,6 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <span>Hello World</span>
+    <span className={"italic"}>Hello World</span>
   </React.StrictMode>,
 );
