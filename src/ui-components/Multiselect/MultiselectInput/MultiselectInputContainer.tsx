@@ -62,7 +62,7 @@ export function MultiselectInputContainer({
       data-testid={"multiselect-input-container"}
       ref={inputContainerRef}
       onClick={onFocusInputContainer}
-      className={`cursor-text rounded-xl shadow-md px-1 py-1 text-[#112a44] text-sm font-medium ${isFocused ? "outline-blue-600 outline-2 outline" : "outline outline-1 outline-[#94a3b8]"}`}
+      className={`cursor-text rounded-xl shadow-md pl-1 py-1 text-[#112a44] text-sm font-medium ${isFocused ? "outline-blue-600 outline-2 outline" : "outline outline-1 outline-[#94a3b8]"}`}
     >
       <div className={"flex justify-between"}>
         <div className={"flex flex-wrap gap-2"}>
@@ -90,28 +90,32 @@ export function MultiselectInputContainer({
         </div>
 
         <div
-          data-testid={"multiselect-dropdown-icon"}
-          onClick={onClickDropdown}
           className={
-            "min-w-4 w-4 flex flex-col cursor-pointer items-center mr-2 justify-center"
+            "flex flex-col cursor-pointer items-center justify-center px-3"
           }
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              if (isDropdownOpen) {
-                onCloseDropdown();
-              } else {
-                onOpenDropdown();
-              }
-            } else {
-              onKeyNavigation(e);
-            }
-          }}
         >
-          <img
-            src={isDropdownOpen ? ArrowUpIcon : ArrowDownIcon}
-            alt={"arrow down"}
-          />
+          <div
+            data-testid={"multiselect-dropdown-icon"}
+            onClick={onClickDropdown}
+            className={"min-w-4 w-4 "}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (isDropdownOpen) {
+                  onCloseDropdown();
+                } else {
+                  onOpenDropdown();
+                }
+              } else {
+                onKeyNavigation(e);
+              }
+            }}
+          >
+            <img
+              src={isDropdownOpen ? ArrowUpIcon : ArrowDownIcon}
+              alt={"arrow down"}
+            />
+          </div>
         </div>
       </div>
     </div>
