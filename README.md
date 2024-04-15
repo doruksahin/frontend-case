@@ -1,6 +1,7 @@
 ## Belirtmek istediğim noktalar
 Çalıştırmak için `yarn start` komutunu kullanabilirsiniz.
 `Multiselect` component'ının Rick And Morty API ile kullanım örneği `MultiselectDemo.tsx` içerisinde yer alıyor.
+- Test için `yarn test` komutunu kullanabilirsiniz.
 
 - Infinite scroll default true olacak şekilde flag olarak eklendi.
 - Mantine'deki multiselect'i incelediğimde sığmadığında aşağı doğru eklediğini gördüm, UI shift'in genel anlamda
