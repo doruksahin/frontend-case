@@ -1,3 +1,17 @@
+## Belirtmek istediğim noktalar
+Çalıştırmak için `yarn start` komutunu kullanabilirsiniz.
+`Multiselect` component'ının Rick And Morty API ile kullanım örneği `MultiselectDemo.tsx` içerisinde yer alıyor.
+
+- Infinite scroll default true olacak şekilde flag olarak eklendi.
+- Mantine'deki multiselect'i incelediğimde sığmadığında aşağı doğru eklediğini gördüm, UI shift'in genel anlamda
+istenmeyen bir davranış olduğunu düşünmeme rağmen yine de Mantine'daki gibi yaptım. Belki yatayda scroll olabilirdi.
+- `renderDropdownItems` ile dışarıdan render pattern ile component definition verilebiliyor. 
+Id ve description ortak olduğu için buraya default bir component koyma taraftarıydım fakat typelarda olabildiğince
+ayrıma gitmeyip (discriminated union) varolan özellikleri tamamlamaya odaklanmaya çalıştım.
+- navigasyon & tab tuşlarıyla focus değiştirme var ve component içerisinde focus lock olması için `useFocusHandler` 
+hook'unu kullandım.
+- Test için `vitest` kullandım.
+
 ## Case:
 Adcreative.ai frontend developer pozisyonu icin hazirladigimiz bu case'de sizden React.js kullanarak multi-select autocomplete component implement etmenizi istiyoruz.
 Daha sonra bu componenti "Rick and Morty" api'daki karakterleri aramak ve select etmek icin kullanacaksiniz.
